@@ -1,4 +1,4 @@
 lib/cutils.o
-test/userinput
-test/userinput.o
-
+test/test.o
+test/test
+test/userinput.txt

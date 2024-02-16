@@ -1,4 +1,4 @@
 
 //function from cutils library
-int getStringInputTil(char*, char);
+char* getStringInputTil(char);
 

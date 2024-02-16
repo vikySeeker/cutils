@@ -1,25 +1,26 @@
 #include<stdio.h>
 #include<stdlib.h>
 
-int getStringInputTil(char* input, char delim) {
-        char* inputview = input;
-        char single_char;
+char* getStringInputTil(char delim) {
+	//printf("input = %p\ninputview = %p\n",input,inputview);
         int buffersize=1, currbuffer = 10; 
-        while((single_char=getchar())!='\0'){
-                //printf("%c", single_char);
-                if(single_char=='q')
-                        break;
-                *inputview = single_char;
+	char char_input;
+	char* input = (char*)malloc(sizeof(char)*currbuffer);
+	char* inputview = input;
+        while((char_input=getchar())!=delim){
+                *inputview = char_input;
                 inputview++;
                 buffersize++;
                 if(buffersize >= currbuffer) {
                         currbuffer *= 2;
-                        input = realloc(input, currbuffer);
-                        printf("Increamented Current Buffersize to: %d\n", currbuffer);
+                        input = (char*)realloc(input, sizeof(char)*currbuffer);
+                        //printf("Increamented Current Buffersize to: %d\n\nnow input = %p\n", currbuffer, input);
                         inputview = input+(buffersize-1);
+			//printf("inputview = %p\n",inputview);
                 }
          
         }
-        printf("%s", input);
-        return 0;
+	//printf("%s", input);
+	
+        return input;
 }
