@@ -1,12 +1,36 @@
 #include<stdio.h>
 #include<stdlib.h>
+#include<string.h>
+
+int string_trim(char** input);
+
+
+int string_trim(char** input) {
+
+	unsigned int length = strlen(*input);
+	if(length<=0) {
+		return -1;
+	}
+	int i = 0;
+	while((*input)[i] == ' ') {
+		++i;
+	}
+	--length;
+	while((*input)[length] == ' ') {
+		(*input)[length] = 0;
+		--length;
+	}
+	*input = (*input)+i;
+	return i;
+}
 
 char* getStringInputTil(char delim) {
-	//printf("input = %p\ninputview = %p\n",input,inputview);
+
         int buffersize=1, currbuffer = 10; 
 	char char_input;
 	char* input = (char*)malloc(sizeof(char)*currbuffer);
 	char* inputview = input;
+
         while((char_input=getchar())!=delim){
                 *inputview = char_input;
                 inputview++;
@@ -14,13 +38,10 @@ char* getStringInputTil(char delim) {
                 if(buffersize >= currbuffer) {
                         currbuffer *= 2;
                         input = (char*)realloc(input, sizeof(char)*currbuffer);
-                        //printf("Increamented Current Buffersize to: %d\n\nnow input = %p\n", currbuffer, input);
                         inputview = input+(buffersize-1);
-			//printf("inputview = %p\n",inputview);
                 }
          
         }
-	//printf("%s", input);
 	
         return input;
 }
