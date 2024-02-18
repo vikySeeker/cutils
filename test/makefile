@@ -1,3 +1,4 @@
+CFLAGS = -Wno-implicit-function-declaration -Wno-builtin-declaration-mismatch
 
 all: test
 
@@ -10,7 +11,7 @@ cutils.o: ../lib/cutils.c
 	gcc -c ../lib/cutils.c -o ../lib/cutils.o -g 
 test.o: test.c
 	@echo "compiling test..."
-	gcc -c test.c -g 
+	gcc $(CFLAGS) -c test.c -g 
 
 clean:
 	@echo "removing everything but the source files.."

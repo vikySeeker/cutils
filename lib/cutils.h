@@ -1,7 +1,8 @@
 
 //function from cutils library
 
-typedef struct {
+typedef struct string {
+	int len;
 	char* value;
 } string;
 

@@ -1,17 +1,12 @@
 #include<stdio.h>
-#include<stdlib.h>
 #include "../lib/cutils.h"
 
 void getStringInputTil_test(){
-	char* input;
-        input = (char*)getStringInputTil('\n');
-        //FILE* newfile;
-        //newfile = fopen("userinput.txt", "w");
-        //fputs(input, newfile);
-        //puts("\nStored the data in userinput.txt successfully");
-        printf("\n\n%s", input);
-        free(input);
-
+	string s1;
+        s1.value = (char*)getStringInputTil('\n');
+	s1.len = strlen(s1.value);
+        printf("%s is %d characters long...\n", s1.value, s1.len);
+        free(s1.value);
 }
 
 
@@ -26,8 +21,17 @@ void string_trim_test() {
         free(inputview);
 }
 
+void string_test() {
+	string s1 = {0, NULL};
+	s1.value = getStringInputTil('\n');
+	s1.len = strlen(s1.value);
+	printf("%s is %d characters long...\n", s1.value, s1.len);
+	free(s1.value);
+}
+
 int main(){
-	string_trim_test();
+	//string_trim_test();
 	//getStringInputTil_test();
+	string_test();
 	return 0;
 }
