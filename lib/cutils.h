@@ -12,7 +12,7 @@ typedef struct string {
  * if returns -1 invalid string.
  *
  */
-int string_trim(char**);
+int string_trim(string*);
 
 
 /* gets input from stdin til delimeter
@@ -20,6 +20,6 @@ int string_trim(char**);
  * passing '\n' as delim gets input from user til it encounters new line.
  * returns address of input.
  */ 
-char* getStringInputTil(char);
+char* read_input(char);
 
 

@@ -1,9 +1,11 @@
 #include<stdio.h>
 #include<stdlib.h>
 #include<string.h>
+#include "cutils.h"
 
-int string_trim(char** input);
-char* getStringInputTil(char delim);
+
+int string_trim(string* input);
+char* read_input(char delim);
 
 
 /* trims the leading and trailing spaces in a string
@@ -11,23 +13,25 @@ char* getStringInputTil(char delim);
  * if returns -1 invalid string.
  *
  */
-int string_trim(char** input) {
+int string_trim(string* input) {
 
-	unsigned int length = strlen(*input);
-	if(length<=0) {
+	int len = input->len-1;
+	if(input->len<=0) {
 		return -1;
 	}
 	int i = 0;
-	while((*input)[i] == ' ') {
+	while(input->value[i] == ' ') {
 		++i;
 	}
-	--length;
-	while((*input)[length] == ' ') {
-		(*input)[length] = 0;
-		--length;
-		i++;
+	input->value = (input->value)+i;
+	len -= i;
+	while(input->value[len] == ' ') {
+		input->value[len] = 0;
+		--len;
+		++i;
 	}
-	*input = (*input)+i;
+	//input->value = (input->value)+i;
+	input->len = len-i;
 	return i;
 }
 
@@ -37,11 +41,12 @@ int string_trim(char** input) {
  * passing '\n' as delim gets input from user til it encounters new line.
  * returns address of input.
  */
-char* getStringInputTil(char delim) {
+char* read_input(char delim) {
 
         int buffersize=0, currbuffer = 40; 
 	char char_input;
-	char* input = (char*)malloc(sizeof(char)*currbuffer);
+	char *input;
+	input = (char*)malloc(sizeof(char)*currbuffer);
 
         while((char_input=getchar())!=delim){
 		input[buffersize++] = char_input;
