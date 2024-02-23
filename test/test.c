@@ -1,5 +1,6 @@
 #include<stdio.h>
 #include "../lib/cutils.h"
+#include<string.h>
 
 void read_input_test(){
 	string s1;
@@ -9,6 +10,22 @@ void read_input_test(){
         free(s1.value);
 }
 
+
+void string_split_test() {
+	string input;
+	input.value = (char*)read_input('\n');
+	input.len = strlen(input.value);
+	printf("%s is %d characters long...\n", input.value, input.len);
+	puts("Splitting string...");
+	char *delim = " ";
+	strings *s = string_split(&input, delim);
+	puts("Printing tokens...");
+	printf("Total Tokens = %d\n\n", s->length);
+        for(int i=0; i<s->length; i++) {
+                printf("%s is %d characters long!\n", s->arr[i].value, s->arr[i].len);
+        }
+	free(input.value);
+}
 
 void string_trim_test() {
 	string input;
@@ -36,14 +53,18 @@ void string_test() {
 
 int main(int argc, char **argv){
 	if(!strcmp(argv[1], "st")) {
-		printf("Executing string_test...\n");
+		puts("Executing string_test...\n");
 		string_test();
 	} else if(!strcmp(argv[1], "stt")) {
-		printf("Executing string_trim_test...\n");
+		puts("Executing string_trim_test...\n");
 		string_trim_test();
 	} else if(!strcmp(argv[1], "rit")) {
-		printf("Executing read_input_test...\n");
+		puts("Executing read_input_test...\n");
 		read_input_test();
+	} else if(!strcmp(argv[1], "sst")) {
+		puts("Executing string_split_test...");
+		string_split_test();
+
 	}
 	return 0;
 }
