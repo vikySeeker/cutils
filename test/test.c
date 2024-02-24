@@ -27,6 +27,19 @@ void string_split_test() {
 	free(input.value);
 }
 
+void string_join_test() {
+	string input;
+        input.value = read_input('\n');
+        input.len = strlen(input.value);
+        printf("%s is %d characters long...\n", input.value, input.len);
+        puts("Splitting string...");
+        char *delim = " ";
+        strings *s = string_split(&input, delim);
+	char *delim2 = read_input('\n');
+	string *out = string_join(s, delim2);
+	printf("Joined String: %s is %d characters long...", out->value, out->len);
+}
+
 void string_trim_test() {
 	string input;
 	input.value = (char*)malloc(sizeof(char)*100);
@@ -64,7 +77,9 @@ int main(int argc, char **argv){
 	} else if(!strcmp(argv[1], "sst")) {
 		puts("Executing string_split_test...");
 		string_split_test();
-
+	} else if(!strcmp(argv[1], "sjt")) {
+		puts("Executing string_join_test...");
+		string_join_test();
 	}
 	return 0;
 }

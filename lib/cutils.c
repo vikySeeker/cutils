@@ -5,6 +5,8 @@
 
 
 int string_trim(string* input);
+strings* string_split(const string *str, const char *delim);
+string* string_join(strings *src, char *delim);
 char* read_input(char delim);
 
 
@@ -33,6 +35,66 @@ int string_trim(string* input) {
 	//input->value = (input->value)+i;
 	input->len = len-i;
 	return i;
+}
+
+
+/* splits a string of type string struct based on given delimeter
+ * returns a string array of type strings struct.
+ * uses strtok under the hood.
+ */
+strings* string_split(const string *str, const char *delim) {
+	strings *s = calloc(1, sizeof(strings));
+	const int buffer = 10;
+	int tok_limit = buffer, tok_count = 0;
+	string *sarray;
+	sarray = calloc(tok_limit, sizeof(string));
+	sarray[tok_count].value = strtok(str->value, delim);
+	sarray[tok_count].len = strlen(sarray[tok_count].value);
+	while(sarray[tok_count].value != NULL) {
+		sarray[tok_count].len = strlen(sarray[tok_count].value);
+		tok_count++;
+		if(tok_count >= tok_limit) {
+			tok_limit += buffer;
+			sarray = reallocarray(sarray, tok_limit, sizeof(string));
+		}
+		sarray[tok_count].value = strtok(NULL, delim);
+	}
+	s->length = tok_count;
+	s->arr = sarray;
+	return s;
+}
+
+/* Joins the array of string of type strings struct
+ * uses seperators between each words
+ * returns a pointer to a string struct.
+ */
+string* string_join(strings *src, char *delim) {
+	if(delim == NULL) {
+		delim = "";
+	}
+	//puts("Entered sjt..");
+	int bc=0, wc = src->length, dc = strlen (delim);
+	for(int i=0;i<wc;i++) {
+		bc += src->arr[i].len;
+	}
+	
+	if(strcmp(delim, "") != 0) {
+		bc += strlen(delim)*(wc-1);
+	}
+	string *dest = (string*)malloc(sizeof(string));
+	dest->value = malloc(bc);
+
+	int len = 0;
+	for(int i=0;i<wc;i++) {
+		strcpy(dest->value+len, src->arr[i].value);
+		len += src->arr[i].len;
+		strcpy(dest->value+len, delim);
+		len += dc;
+	}
+	len -= dc;
+	dest->value[len] = 0;
+	dest->len = len;
+	return dest;
 }
 
 
