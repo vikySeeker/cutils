@@ -10,3 +10,5 @@ NOTE: I note this down because I'll eventually forget this [Yes I don't know how
 - Step 1: gcc -c -o userinput.o  userinput.c
 - Step 2: gcc -c -o cutils.o cutils.c
 - Step 3: gcc -o userinput userinput.o cutils.o
+
+**UPDATE:** I wrote a simple make file so just say `make all` to compile!
