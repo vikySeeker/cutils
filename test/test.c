@@ -11,13 +11,22 @@ void read_input_test(){
 }
 
 
+void strtok_test() {
+	char *words = "Hello world";
+	char *tok = strtok(words, "");
+	while(tok) {
+		printf("%s\n", tok);
+		tok = strtok(NULL, " ");
+	}
+}
+
 void string_split_test() {
 	string input;
 	input.value = (char*)read_input('\n');
 	input.len = strlen(input.value);
 	printf("%s is %d characters long...\n", input.value, input.len);
 	puts("Splitting string...");
-	char *delim = " ";
+	char *delim = "";
 	strings *s = string_split(&input, delim);
 	puts("Printing tokens...");
 	printf("Total Tokens = %d\n\n", s->length);
@@ -56,6 +65,13 @@ void string_trim_test() {
         free(inputview);
 }
 
+void to_int_test() {
+	string s;
+	s.value = (char*)read_input('\n');
+	s.len = strlen(s.value);
+	printf("%d", to_int(&s));
+}
+
 void string_test() {
 	string s1 = {0, NULL};
 	s1.value = (char*)read_input('\n');
@@ -80,6 +96,12 @@ int main(int argc, char **argv){
 	} else if(!strcmp(argv[1], "sjt")) {
 		puts("Executing string_join_test...");
 		string_join_test();
+	} else if(!strcmp(argv[1], "strt")) {
+		puts("Executing strtok_test...");
+		strtok_test();
+	} else if(!strcmp(argv[1], "tit") != 0) {
+		puts("Executing to_int_test...");
+		to_int_test();
 	}
 	return 0;
 }

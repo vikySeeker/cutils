@@ -5,10 +5,28 @@
 
 
 int string_trim(string* input);
+int to_int(string* input);
 strings* string_split(const string *str, const char *delim);
 string* string_join(strings *src, char *delim);
 char* read_input(char delim);
 
+/* returns a signed int if given string is valid number;
+ * returns -1 if given string is not a valid number;
+ */
+int to_int(string* input) {
+	int number = 0;
+	for(int i=0; i<input->len; i++) {
+		if(input->value[i] >= 48 && input->value[i] <= 57) {
+			number += input->value[i] - 48;
+			if(i<input->len-1)
+			number *=10;
+			
+		} else {
+			return -1;
+		}
+	}
+	return number;
+}
 
 /* trims the leading and trailing spaces in a string
  * takes char** pointer as argument and returns number of spaces removed.
@@ -105,19 +123,18 @@ string* string_join(strings *src, char *delim) {
  */
 char* read_input(char delim) {
 
-        int buffersize=0, currbuffer = 40; 
+    int buffersize=0, currbuffer = 40; 
 	char char_input;
 	char *input;
 	input = (char*)malloc(sizeof(char)*currbuffer);
 
-        while((char_input=getchar())!=delim){
-		input[buffersize++] = char_input;
-                if(buffersize >= currbuffer) {
-                        currbuffer += 20;
-                        input = (char*)realloc(input, sizeof(char)+currbuffer);
-                }
-         
-        }
+	while((char_input=getchar())!=delim){
+	input[buffersize++] = char_input;
+			if(buffersize >= currbuffer) {
+					currbuffer += 20;
+					input = (char*)realloc(input, sizeof(char)+currbuffer);
+			}
+	}
 	input[buffersize] = 0;
-        return input;
+    return input;
 }

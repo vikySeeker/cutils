@@ -1,4 +1,5 @@
-
+#ifndef MY_STRING_LIB
+#define MY_STRING_LIB
 //function from cutils library
 
 typedef struct string {
@@ -11,6 +12,8 @@ typedef struct stringarray {
 	int length;
 	string* arr;
 } strings;
+
+int to_int(string*);
 
 /* trims the leading and trailing spaces in a string
  * takes char** pointer as argument and returns number of spaces removed.
@@ -39,4 +42,4 @@ string* string_join(strings*, char*);
  */
 char* read_input(char);
 
-
+#endif
