@@ -67,7 +67,10 @@ strings* string_split(const string *str, const char *delim) {
 	string *sarray;
 	sarray = calloc(tok_limit, sizeof(string));
 	sarray[tok_count].value = strtok(str->value, delim);
-	sarray[tok_count].len = strlen(sarray[tok_count].value);
+
+	if(sarray[tok_count].value == NUll)
+		sarray[tok_count].len = 0;
+		goto finalize;
 	while(sarray[tok_count].value != NULL) {
 		sarray[tok_count].len = strlen(sarray[tok_count].value);
 		tok_count++;
@@ -77,8 +80,10 @@ strings* string_split(const string *str, const char *delim) {
 		}
 		sarray[tok_count].value = strtok(NULL, delim);
 	}
-	s->length = tok_count;
-	s->arr = sarray;
+	finalize:
+		s->length = tok_count;
+		s->arr = sarray;
+
 	return s;
 }
 

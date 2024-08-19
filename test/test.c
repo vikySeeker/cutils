@@ -26,7 +26,7 @@ void string_split_test() {
 	input.len = strlen(input.value);
 	printf("%s is %d characters long...\n", input.value, input.len);
 	puts("Splitting string...");
-	char *delim = "";
+	char *delim = "/";
 	strings *s = string_split(&input, delim);
 	puts("Printing tokens...");
 	printf("Total Tokens = %d\n\n", s->length);
